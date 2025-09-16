@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RubyElektronik")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+083076b8506d019ca7c9455f42205f30a8ed17f1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+31ead7d8732e93c416b28b48c9977f4be306d524")]
 [assembly: System.Reflection.AssemblyProductAttribute("RubyElektronik")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RubyElektronik")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
