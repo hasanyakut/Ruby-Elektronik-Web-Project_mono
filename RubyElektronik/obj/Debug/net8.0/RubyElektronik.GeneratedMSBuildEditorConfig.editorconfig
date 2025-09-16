@@ -9,119 +9,119 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = RubyElektronik
 build_property.RootNamespace = RubyElektronik
-build_property.ProjectDir = C:\Users\hasan\OneDrive\Desktop\Ruby-Elektronik-Web-Projec\RubyElektronik\
+build_property.ProjectDir = C:\Users\hasan\OneDrive\Desktop\Ruby-Elektronik-Web-Project\RubyElektronik\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\hasan\OneDrive\Desktop\Ruby-Elektronik-Web-Projec\RubyElektronik
+build_property.MSBuildProjectDirectory = C:\Users\hasan\OneDrive\Desktop\Ruby-Elektronik-Web-Project\RubyElektronik
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Admin/CreateOrder.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Admin/CreateOrder.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlT3JkZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Admin/CreateProduct.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Admin/CreateProduct.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlUHJvZHVjdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Admin/CreateUser.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Admin/CreateUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlVXNlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Admin/Dashboard.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Admin/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Admin/EditProduct.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Admin/EditProduct.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdFByb2R1Y3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Admin/Login.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Admin/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Admin/Orders.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Admin/Orders.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cT3JkZXJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Admin/Products.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Admin/Products.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUHJvZHVjdHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Admin/ServiceRecords.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Admin/ServiceRecords.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2VydmljZVJlY29yZHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Admin/Users.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Admin/Users.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Home/Index.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Home/Privacy.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Home/ServisKayit.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Home/ServisKayit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTZXJ2aXNLYXlpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Home/ServisKayitlari.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Home/ServisKayitlari.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTZXJ2aXNLYXlpdGxhcmkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Home/_ProductCards.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Home/_ProductCards.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxfUHJvZHVjdENhcmRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Orders/Create.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Orders/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Orders/Index.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Orders/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Products/Create.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Products/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Products/Edit.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Products/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Products/Index.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Products/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Shared/Error.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Users/Create.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Users/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Users/Index.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Users/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlcnNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/_ViewImports.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/_ViewStart.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Projec/RubyElektronik/Views/Shared/_Layout.cshtml]
+[C:/Users/hasan/OneDrive/Desktop/Ruby-Elektronik-Web-Project/RubyElektronik/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-5wq96o2f2d

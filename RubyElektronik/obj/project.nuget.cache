@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZU52DNVdPRk=",
+  "dgSpecHash": "K1PmUNJUgS0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Projec\\RubyElektronik\\RubyElektronik.csproj",
+  "projectFilePath": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Project\\RubyElektronik\\RubyElektronik.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hasan\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\hasan\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

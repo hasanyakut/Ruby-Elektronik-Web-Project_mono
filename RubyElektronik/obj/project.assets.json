@@ -4522,11 +4522,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Projec\\RubyElektronik\\RubyElektronik.csproj",
+      "projectUniqueName": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Project\\RubyElektronik\\RubyElektronik.csproj",
       "projectName": "RubyElektronik",
-      "projectPath": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Projec\\RubyElektronik\\RubyElektronik.csproj",
+      "projectPath": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Project\\RubyElektronik\\RubyElektronik.csproj",
       "packagesPath": "C:\\Users\\hasan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Projec\\RubyElektronik\\obj\\",
+      "outputPath": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Project\\RubyElektronik\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hasan\\AppData\\Roaming\\NuGet\\NuGet.Config",
