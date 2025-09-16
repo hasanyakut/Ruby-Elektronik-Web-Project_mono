@@ -425,3 +425,4 @@ C:\Users\hasan\OneDrive\Desktop\Ruby-Elektronik-Web-Project\RubyElektronik\obj\D
 C:\Users\hasan\OneDrive\Desktop\Ruby-Elektronik-Web-Project\RubyElektronik\obj\Debug\net8.0\RubyElektronik.pdb
 C:\Users\hasan\OneDrive\Desktop\Ruby-Elektronik-Web-Project\RubyElektronik\obj\Debug\net8.0\RubyElektronik.genruntimeconfig.cache
 C:\Users\hasan\OneDrive\Desktop\Ruby-Elektronik-Web-Project\RubyElektronik\obj\Debug\net8.0\ref\RubyElektronik.dll
+C:\Users\hasan\OneDrive\Desktop\Ruby-Elektronik-Web-Project\RubyElektronik\obj\Debug\net8.0\RubyElektronik.sourcelink.json

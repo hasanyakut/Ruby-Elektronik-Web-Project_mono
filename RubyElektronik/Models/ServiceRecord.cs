@@ -53,5 +53,13 @@ namespace RubyElektronik.Models
         
         [Display(Name = "Güncellenme Tarihi")]
         public DateTime? UpdatedAt { get; set; }
+
+        [Display(Name = "Tamamlama Açıklaması")]
+        [StringLength(1000, ErrorMessage = "Açıklama 1000 karakteri aşmamalıdır")]
+        public string? CompletionDescription { get; set; }
+
+        [Display(Name = "Servis Ücreti")]
+        [Range(0, 999999.99, ErrorMessage = "Fiyat 0-999999.99 arasında olmalıdır")]
+        public decimal? CompletionPrice { get; set; }
     }
 } 

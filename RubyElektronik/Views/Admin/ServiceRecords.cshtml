@@ -97,10 +97,16 @@
                                                         <i class="fas fa-file-pdf"></i>
                                                     </a>
                                                     <a href="/admin/servicerecords/complete/@kayit.Id" 
-                                                       class="btn btn-success btn-sm"
+                                                       class="btn btn-success btn-sm me-1"
                                                        onclick="return confirm('Bu servis kaydını tamamlandı olarak işaretlemek istediğinizden emin misiniz?')">
                                                         <i class="fas fa-check me-1"></i>Tamamlandı
                                                     </a>
+                                                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#completionModal"
+                                                            data-id="@kayit.Id"
+                                                            data-desc="@kayit.CompletionDescription"
+                                                            data-price="@(kayit.CompletionPrice?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "")">
+                                                        <i class="fas fa-pen me-1"></i>Açıklama/Fiyat
+                                                    </button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -176,18 +182,39 @@
                                             <td>@kayit.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
                                             <td>@(kayit.UpdatedAt?.ToString("dd.MM.yyyy HH:mm") ?? "-")</td>
                                             <td>
-                                                <div class="btn-group" role="group">
-                                                    <a href="/admin/servicerecords/pdf/@kayit.Id" 
-                                                       class="btn btn-danger btn-sm me-1"
-                                                       title="PDF İndir">
-                                                        <i class="fas fa-file-pdf"></i>
-                                                    </a>
-                                                    <a href="/admin/servicerecords/delete/@kayit.Id" 
-                                                       class="btn btn-outline-danger btn-sm"
-                                                       title="Tamamen Sil"
-                                                       onclick="return confirm('Bu servis kaydını TAMAMEN SİLMEK istediğinizden emin misiniz? Bu işlem geri alınamaz ve kayıt veritabanından tamamen silinecektir!')">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
+                                                <div class="d-flex flex-column gap-2">
+                                                    <div class="btn-group" role="group">
+                                                        <a href="/admin/servicerecords/pdf/@kayit.Id" 
+                                                           class="btn btn-danger btn-sm me-1"
+                                                           title="PDF İndir">
+                                                            <i class="fas fa-file-pdf"></i>
+                                                        </a>
+                                                        <button type="button" class="btn btn-outline-primary btn-sm me-1" data-bs-toggle="modal" data-bs-target="#completionModal"
+                                                                data-id="@kayit.Id"
+                                                                data-desc="@kayit.CompletionDescription"
+                                                                data-price="@(kayit.CompletionPrice?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "")">
+                                                            <i class="fas fa-pen me-1"></i>Açıklama/Fiyat
+                                                        </button>
+                                                        <a href="/admin/servicerecords/delete/@kayit.Id" 
+                                                           class="btn btn-outline-danger btn-sm"
+                                                           title="Tamamen Sil"
+                                                           onclick="return confirm('Bu servis kaydını TAMAMEN SİLMEK istediğinizden emin misiniz? Bu işlem geri alınamaz ve kayıt veritabanından tamamen silinecektir!')">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                    @if (!string.IsNullOrWhiteSpace(kayit.CompletionDescription) || kayit.CompletionPrice.HasValue)
+                                                    {
+                                                        <div class="border rounded p-2 bg-white">
+                                                            @if (!string.IsNullOrWhiteSpace(kayit.CompletionDescription))
+                                                            {
+                                                                <div><strong>Açıklama:</strong> @kayit.CompletionDescription</div>
+                                                            }
+                                                            @if (kayit.CompletionPrice.HasValue)
+                                                            {
+                                                                <div><strong>Fiyat:</strong> @kayit.CompletionPrice.Value.ToString("C2", System.Globalization.CultureInfo.GetCultureInfo("tr-TR"))</div>
+                                                            }
+                                                        </div>
+                                                    }
                                                 </div>
                                             </td>
                                         </tr>
@@ -208,3 +235,58 @@
         </div>
     </div>
 </div>
+
+<!-- Shared Completion Modal (placed once at end to avoid table nesting issues) -->
+<div class="modal fade" id="completionModal" tabindex="-1" aria-labelledby="completionModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="completionModalLabel">Tamamlama Bilgileri</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="completionForm" method="post">
+          <div class="modal-body">
+              <div class="mb-3">
+                  <label class="form-label">Açıklama (isteğe bağlı)</label>
+                  <textarea id="completionDescriptionInput" name="completionDescription" class="form-control" rows="4" maxlength="1000"></textarea>
+              </div>
+              <div class="mb-3">
+                  <label class="form-label">Fiyat (isteğe bağlı)</label>
+                  <input id="completionPriceInput" type="number" step="0.01" min="0" class="form-control" name="completionPrice" />
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var completionModal = document.getElementById('completionModal');
+            var descriptionInput = document.getElementById('completionDescriptionInput');
+            var priceInput = document.getElementById('completionPriceInput');
+            var form = document.getElementById('completionForm');
+
+            completionModal.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+                var id = button.getAttribute('data-id');
+                var desc = button.getAttribute('data-desc') || '';
+                var price = button.getAttribute('data-price') || '';
+
+                descriptionInput.value = desc;
+                priceInput.value = price;
+                form.action = '/admin/servicerecords/update-completion/' + id;
+
+                var title = completionModal.querySelector('.modal-title');
+                if (title) {
+                    title.textContent = 'Tamamlama Bilgileri (#' + id + ')';
+                }
+            });
+        });
+    </script>
+}

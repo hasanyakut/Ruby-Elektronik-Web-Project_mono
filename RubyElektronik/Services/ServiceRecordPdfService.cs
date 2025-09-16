@@ -69,6 +69,12 @@ namespace RubyElektronik.Services
         <div class='field'>Urun Turu: {serviceRecord.UrunTuru}</div>
         <div class='field'>Ariza Aciklamasi: {serviceRecord.ArizaAciklamasi}</div>
     </div>
+    {(string.IsNullOrWhiteSpace(serviceRecord.CompletionDescription) && !serviceRecord.CompletionPrice.HasValue ? "" : $@" 
+    <div class='section'>
+        <div class='section-title'>TAMAMLAMA BILGILERI</div>
+        {(string.IsNullOrWhiteSpace(serviceRecord.CompletionDescription) ? "" : $"<div class='field'>Aciklama: {System.Net.WebUtility.HtmlEncode(serviceRecord.CompletionDescription)}</div>")}
+        {(serviceRecord.CompletionPrice.HasValue ? $"<div class='field'>Fiyat: {serviceRecord.CompletionPrice.Value.ToString("C2", System.Globalization.CultureInfo.GetCultureInfo("tr-TR"))}</div>" : "")}
+    </div>")}
     
     <div class='section'>
         <div class='section-title'>TARIH BILGILERI</div>
@@ -103,6 +109,8 @@ namespace RubyElektronik.Services
                     <td>{record.TelefonNumarasi}</td>
                     <td>{record.UrunTuru}</td>
                     <td>{(record.IsActive ? "Aktif" : "Tamamlandi")}</td>
+                    <td>{(string.IsNullOrWhiteSpace(record.CompletionDescription) ? "-" : System.Net.WebUtility.HtmlEncode(record.CompletionDescription))}</td>
+                    <td>{(record.CompletionPrice.HasValue ? record.CompletionPrice.Value.ToString("C2", System.Globalization.CultureInfo.GetCultureInfo("tr-TR")) : "-")}</td>
                     <td>{record.CreatedAt:dd.MM.yyyy HH:mm}</td>
                 </tr>"));
 
@@ -151,6 +159,8 @@ namespace RubyElektronik.Services
                 <th>Telefon</th>
                 <th>Urun</th>
                 <th>Durum</th>
+                <th>Tamam Açıklama</th>
+                <th>Tamam Fiyat</th>
                 <th>Tarih</th>
             </tr>
         </thead>

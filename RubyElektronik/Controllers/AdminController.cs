@@ -605,6 +605,40 @@ namespace RubyElektronik.Controllers
             return RedirectToAction("ServiceRecords");
         }
 
+        [Route("servicerecords/update-completion/{id}")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateServiceRecordCompletion(int id, string? completionDescription, decimal? completionPrice)
+        {
+            // Giriş kontrolü
+            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
+            {
+                return RedirectToAction("Login");
+            }
+
+            try
+            {
+                var serviceRecord = await _context.ServiceRecords.FindAsync(id);
+                if (serviceRecord == null)
+                {
+                    TempData["Error"] = "Servis kaydı bulunamadı";
+                    return RedirectToAction("ServiceRecords");
+                }
+
+                serviceRecord.CompletionDescription = string.IsNullOrWhiteSpace(completionDescription) ? null : completionDescription.Trim();
+                serviceRecord.CompletionPrice = completionPrice;
+                serviceRecord.UpdatedAt = DateTime.UtcNow;
+
+                await _context.SaveChangesAsync();
+                TempData["Success"] = "Tamamlama bilgileri kaydedildi";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"Tamamlama bilgileri kaydedilirken hata oluştu: {ex.Message}";
+            }
+
+            return RedirectToAction("ServiceRecords");
+        }
+
         // PDF İndirme Endpoint'leri
         [Route("servicerecords/pdf/{id}")]
         public async Task<IActionResult> DownloadServiceRecordPdf(int id)
