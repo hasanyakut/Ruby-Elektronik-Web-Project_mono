@@ -18,7 +18,7 @@ namespace RubyElektronik.Controllers
         {
             try
             {
-                var users = await _context.Users.Where(u => u.IsActive).ToListAsync();
+                var users = await _context.RubyUsers.Where(u => u.IsActive).ToListAsync();
                 return View(users);
             }
             catch (Exception ex)
@@ -48,7 +48,7 @@ namespace RubyElektronik.Controllers
             try
             {
                 user.CreatedAt = DateTime.UtcNow;
-                _context.Users.Add(user);
+                _context.RubyUsers.Add(user);
                 await _context.SaveChangesAsync();
                 TempData["Success"] = "Kullanıcı başarıyla eklendi";
                 return RedirectToAction("Index");
@@ -64,7 +64,7 @@ namespace RubyElektronik.Controllers
         {
             try
             {
-                var user = await _context.Users.FindAsync(id);
+                var user = await _context.RubyUsers.FindAsync(id);
                 if (user == null)
                 {
                     TempData["Error"] = "Kullanıcı bulunamadı";

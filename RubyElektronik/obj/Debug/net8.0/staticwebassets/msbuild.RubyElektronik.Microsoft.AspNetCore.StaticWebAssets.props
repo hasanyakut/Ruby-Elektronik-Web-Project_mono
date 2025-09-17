@@ -3808,6 +3808,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\61l0YWa+FtL._UF1000,1000_QL80__661eb765bf2f4ce4af7d3873d309cb01.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_2d524db1bcfe452d8c2dd1dfae9ceff5.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>RubyElektronik</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/RubyElektronik</BasePath>
+      <RelativePath>uploads/products/simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_2d524db1bcfe452d8c2dd1dfae9ceff5.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_2d524db1bcfe452d8c2dd1dfae9ceff5.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_4d4d6f8c7f264473a4fe487703d541ef.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>RubyElektronik</SourceId>
@@ -3823,6 +3839,22 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_4d4d6f8c7f264473a4fe487703d541ef.jpg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_9e173c8051be403ba8f896d8fa43cf79.jpg))">
+      <SourceType>Package</SourceType>
+      <SourceId>RubyElektronik</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/RubyElektronik</BasePath>
+      <RelativePath>uploads/products/simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_9e173c8051be403ba8f896d8fa43cf79.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_9e173c8051be403ba8f896d8fa43cf79.jpg))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\uploads\products\WhatsApp Image 2025-07-12 at 21.57.31_f4194f1a_09b50d4ff40e4eebb3798f6278e6450d.jpg))">
       <SourceType>Package</SourceType>

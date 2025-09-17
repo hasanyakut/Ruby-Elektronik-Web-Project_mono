@@ -957,8 +957,16 @@
       "PackagePath": "staticwebassets\\uploads\\products\\WhatsApp Image 2025-07-12 at 21.57.31_f4194f1a_09b50d4ff40e4eebb3798f6278e6450d.jpg"
     },
     {
+      "Id": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Project\\RubyElektronik\\wwwroot\\uploads\\products\\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_2d524db1bcfe452d8c2dd1dfae9ceff5.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_2d524db1bcfe452d8c2dd1dfae9ceff5.jpg"
+    },
+    {
       "Id": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Project\\RubyElektronik\\wwwroot\\uploads\\products\\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_4d4d6f8c7f264473a4fe487703d541ef.jpg",
       "PackagePath": "staticwebassets\\uploads\\products\\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_4d4d6f8c7f264473a4fe487703d541ef.jpg"
+    },
+    {
+      "Id": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Project\\RubyElektronik\\wwwroot\\uploads\\products\\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_9e173c8051be403ba8f896d8fa43cf79.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_9e173c8051be403ba8f896d8fa43cf79.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.RubyElektronik.Microsoft.AspNetCore.StaticWebAssets.props",

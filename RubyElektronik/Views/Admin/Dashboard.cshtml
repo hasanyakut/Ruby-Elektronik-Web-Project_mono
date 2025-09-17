@@ -2,180 +2,337 @@
     ViewData["Title"] = "Ruby Elektronik - Admin Dashboard";
 }
 
-<div class="row mb-4 admin-container">
-    <div class="col-12">
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <h1 class="display-5 fw-bold">
-                    <i class="fas fa-tachometer-alt me-3"></i>Admin Dashboard
-                </h1>
-                <p class="lead text-muted">Ruby Elektronik yönetim paneli</p>
-            </div>
-            <div class="text-end">
-                <div class="mb-2">
-                    <span class="badge bg-success">
-                        <i class="fas fa-user me-1"></i>@ViewBag.AdminUsername
-                    </span>
-                </div>
-                <a href="/admin/logout" class="btn btn-outline-danger btn-sm">
-                    <i class="fas fa-sign-out-alt me-1"></i>Çıkış Yap
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Stats Cards -->
-<div class="row mb-4">
-    <div class="col-md-4 mb-3">
-        <div class="card bg-primary text-white">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h3 class="card-title mb-0">@ViewBag.ProductCount</h3>
-                        <p class="card-text">Toplam Ürün</p>
-                    </div>
-                    <div class="fs-1">
-                        <i class="fas fa-box"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<style>
+    .admin-sidebar {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        height: fit-content;
+        position: sticky;
+        top: 120px;
+    }
     
-    <div class="col-md-4 mb-3">
-        <div class="card bg-success text-white">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h3 class="card-title mb-0">@ViewBag.OrderCount</h3>
-                        <p class="card-text">Toplam Sipariş</p>
-                    </div>
-                    <div class="fs-1">
-                        <i class="fas fa-shopping-bag"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    .admin-sidebar .sidebar-header {
+        background: rgba(102, 126, 234, 0.15);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        color: #667eea;
+        font-weight: 600;
+        border-radius: 20px 20px 0 0;
+        padding: 1.5rem;
+    }
     
-    <div class="col-md-4 mb-3">
-        <div class="card bg-info text-white">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h3 class="card-title mb-0">@ViewBag.UserCount</h3>
-                        <p class="card-text">Toplam Kullanıcı</p>
-                    </div>
-                    <div class="fs-1">
-                        <i class="fas fa-users"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    .admin-sidebar .sidebar-menu {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+    
+    .admin-sidebar .sidebar-menu .menu-item {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .admin-sidebar .sidebar-menu .menu-item:last-child {
+        border-bottom: none;
+    }
+    
+    .admin-sidebar .sidebar-menu .menu-link {
+        display: block;
+        padding: 1rem 1.5rem;
+        color: #e0e0e0;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-radius: 0;
+    }
+    
+    .admin-sidebar .sidebar-menu .menu-link:hover {
+        background: rgba(102, 126, 234, 0.2);
+        color: #667eea;
+        text-decoration: none;
+        transform: translateX(5px);
+    }
+    
+    .admin-sidebar .sidebar-menu .menu-link i {
+        width: 20px;
+        margin-right: 10px;
+    }
+    
+    .admin-content {
+        padding-left: 2rem;
+    }
+    
+    .admin-header {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .admin-header .header-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .admin-header .user-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .admin-header .logout-form {
+        margin: 0;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .stat-card .stat-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .stat-card .stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0;
+    }
+    
+    .stat-card .stat-icon {
+        font-size: 3rem;
+        opacity: 0.7;
+    }
+    
+    .stat-card.primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .stat-card.success {
+        background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+    }
+    
+    .stat-card.info {
+        background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+    }
+    
+    .stat-card.warning {
+        background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
+    }
+    
+    .welcome-card {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+    }
+    
+    .welcome-card .welcome-header {
+        background: rgba(102, 126, 234, 0.15);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        color: #667eea;
+        font-weight: 600;
+        border-radius: 20px 20px 0 0;
+        padding: 1.5rem;
+        margin: -2rem -2rem 1.5rem -2rem;
+    }
+    
+    @@media (max-width: 768px) {
+        .admin-content {
+            padding-left: 0;
+            margin-top: 2rem;
+        }
+        
+        .admin-sidebar {
+            position: static;
+            margin-bottom: 2rem;
+        }
+        
+        .admin-header .header-info {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>
 
-<!-- Quick Actions -->
 <div class="row">
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-header">
+    <!-- Admin Sidebar -->
+    <div class="col-lg-3 col-md-4">
+        <div class="admin-sidebar">
+            <div class="sidebar-header">
                 <h5 class="mb-0">
-                    <i class="fas fa-box me-2"></i>Ürün Yönetimi
+                    <i class="fas fa-tachometer-alt me-2"></i>Admin Menü
                 </h5>
             </div>
-            <div class="card-body">
-                <p class="text-muted">Ürün ekleme, düzenleme ve silme işlemleri</p>
-                <div class="d-grid gap-2">
-                    <a href="/admin/products" class="btn btn-primary">
-                        <i class="fas fa-list me-2"></i>Ürünleri Görüntüle
+            <ul class="sidebar-menu">
+                <li class="menu-item">
+                    <a href="/admin/dashboard" class="menu-link">
+                        <i class="fas fa-home"></i>Dashboard
                     </a>
-                    <a href="/admin/products/create" class="btn btn-success">
-                        <i class="fas fa-plus me-2"></i>Yeni Ürün Ekle
+                </li>
+                <li class="menu-item">
+                    <a href="/admin/products" class="menu-link">
+                        <i class="fas fa-box"></i>Ürün Yönetimi
                     </a>
+                </li>
+                <li class="menu-item">
+                    <a href="/admin/products/create" class="menu-link">
+                        <i class="fas fa-plus"></i>Yeni Ürün Ekle
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="/admin/orders" class="menu-link">
+                        <i class="fas fa-shopping-bag"></i>Sipariş Yönetimi
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="/admin/orders/create" class="menu-link">
+                        <i class="fas fa-plus"></i>Yeni Sipariş Ekle
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="/admin/users" class="menu-link">
+                        <i class="fas fa-users"></i>Kullanıcı Yönetimi
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="/admin/users/create" class="menu-link">
+                        <i class="fas fa-user-plus"></i>Yeni Kullanıcı Ekle
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="/admin/servicerecords" class="menu-link">
+                        <i class="fas fa-tools"></i>Servis Kayıtları
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="/admin/add-admin" class="menu-link">
+                        <i class="fas fa-user-shield"></i>Admin Ekle
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="/" class="menu-link">
+                        <i class="fas fa-eye"></i>Siteyi Görüntüle
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Admin Content -->
+    <div class="col-lg-9 col-md-8">
+        <div class="admin-content">
+            <!-- Admin Header -->
+            <div class="admin-header">
+                <div class="header-info">
+                    <div>
+                        <h1 class="display-5 fw-bold mb-2">
+                            <i class="fas fa-tachometer-alt me-3"></i>Admin Dashboard
+                        </h1>
+                        <p class="lead text-muted mb-0">Ruby Elektronik yönetim paneli</p>
+                    </div>
+                    <div class="user-info">
+                        <span class="badge bg-success fs-6">
+                            <i class="fas fa-user me-1"></i>@ViewBag.AdminUsername
+                        </span>
+                        <form asp-controller="Auth" asp-action="Logout" method="post" class="logout-form">
+                            <button type="submit" class="btn btn-outline-danger">
+                                <i class="fas fa-sign-out-alt me-1"></i>Çıkış Yap
+                            </button>
+                        </form>
+            </div>
                 </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card primary text-white">
+                    <div class="stat-content">
+                        <div>
+                            <h3 class="stat-number">@ViewBag.ProductCount</h3>
+                            <p class="mb-0">Toplam Ürün</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-box"></i>
             </div>
         </div>
     </div>
     
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">
-                    <i class="fas fa-shopping-bag me-2"></i>Sipariş Yönetimi
-                </h5>
+                <div class="stat-card success text-white">
+                    <div class="stat-content">
+                        <div>
+                            <h3 class="stat-number">@ViewBag.OrderCount</h3>
+                            <p class="mb-0">Toplam Sipariş</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
             </div>
-            <div class="card-body">
-                <p class="text-muted">Sipariş takibi ve yönetimi</p>
-                <div class="d-grid gap-2">
-                    <a href="/admin/orders" class="btn btn-primary">
-                        <i class="fas fa-list me-2"></i>Siparişleri Görüntüle
-                    </a>
-                    <a href="/admin/orders/create" class="btn btn-success">
-                        <i class="fas fa-plus me-2"></i>Yeni Sipariş Ekle
-                    </a>
                 </div>
+                
+                <div class="stat-card info text-white">
+                    <div class="stat-content">
+                        <div>
+                            <h3 class="stat-number">@ViewBag.UserCount</h3>
+                            <p class="mb-0">Toplam Kullanıcı</p>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
             </div>
         </div>
     </div>
     
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">
-                    <i class="fas fa-users me-2"></i>Kullanıcı Yönetimi
-                </h5>
+                <div class="stat-card warning text-white">
+                    <div class="stat-content">
+                        <div>
+                            <h3 class="stat-number">@ViewBag.ServiceRecordCount</h3>
+                            <p class="mb-0">Servis Kaydı</p>
             </div>
-            <div class="card-body">
-                <p class="text-muted">Kullanıcı hesapları yönetimi</p>
-                <div class="d-grid gap-2">
-                    <a href="/admin/users" class="btn btn-primary">
-                        <i class="fas fa-list me-2"></i>Kullanıcıları Görüntüle
-                    </a>
-                    <a href="/admin/users/create" class="btn btn-success">
-                        <i class="fas fa-plus me-2"></i>Yeni Kullanıcı Ekle
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">
-                    <i class="fas fa-home me-2"></i>Site Yönetimi
-                </h5>
-            </div>
-            <div class="card-body">
-                <p class="text-muted">Ana site yönetimi</p>
-                <div class="d-grid gap-2">
-                    <a href="/" class="btn btn-primary">
-                        <i class="fas fa-eye me-2"></i>Siteyi Görüntüle
-                    </a>
-                    <a href="/admin/servicerecords" class="btn btn-primary">
-                        <i class="fas fa-tools me-2"></i>Servis Kayıtları Yönetimi
-                    </a>
-                </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-tools"></i>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Recent Activity -->
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
+            <!-- Welcome Card -->
+            <div class="welcome-card">
+                <div class="welcome-header">
                 <h5 class="mb-0">
-                    <i class="fas fa-clock me-2"></i>Son Aktiviteler
+                        <i class="fas fa-clock me-2"></i>Hoş Geldiniz!
                 </h5>
             </div>
-            <div class="card-body">
                 <div class="alert alert-info">
                     <i class="fas fa-info-circle me-2"></i>
-                    Hoş geldiniz! Ruby Elektronik admin panelinde sistem yönetimi yapabilirsiniz.
+                    Ruby Elektronik admin panelinde sistem yönetimi yapabilirsiniz. Sol menüden istediğiniz işlemi seçebilirsiniz.
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">

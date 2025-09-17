@@ -4,81 +4,62 @@ using RubyElektronik.Models;
 using RubyElektronik.Data;
 using RubyElektronik.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace RubyElektronik.Controllers
 {
     [Route("admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly ServiceRecordPdfService _pdfService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AdminController(ApplicationDbContext context)
+        public AdminController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
             _pdfService = new ServiceRecordPdfService();
         }
 
-        // Login sayfası
+        // Default admin route - redirect to dashboard
         [Route("")]
-        [Route("login")]
-        [HttpGet]
-        public IActionResult Login()
+        public IActionResult Index()
         {
-            // Eğer zaten giriş yapmışsa dashboard'a yönlendir
-            if (HttpContext.Session.GetString("AdminLoggedIn") == "true")
-            {
-                return RedirectToAction("Dashboard");
-            }
-            
-            ViewData["Title"] = "Ruby Elektronik - Admin Giriş";
-            return View();
-        }
-
-        [Route("login")]
-        [HttpPost]
-        public IActionResult Login(string username, string password)
-        {
-            if (username == "admin" && password == "12345")
-            {
-                HttpContext.Session.SetString("AdminLoggedIn", "true");
-                HttpContext.Session.SetString("AdminUsername", username);
-                return RedirectToAction("Dashboard");
-            }
-            else
-            {
-                TempData["Error"] = "Kullanıcı adı veya şifre hatalı!";
-                return View();
-            }
+            return RedirectToAction("Dashboard");
         }
 
         // Logout
         [Route("logout")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Login");
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Login", "Auth");
+        }
+
+        // Add New Admin
+        [Route("add-admin")]
+        public IActionResult AddAdmin()
+        {
+            return RedirectToAction("Register", "Auth");
         }
 
         // Admin Dashboard
         [Route("dashboard")]
         public async Task<IActionResult> Dashboard()
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
-
             ViewData["Title"] = "Ruby Elektronik - Admin Dashboard";
-            ViewBag.AdminUsername = HttpContext.Session.GetString("AdminUsername");
+            ViewBag.AdminUsername = User.Identity?.Name;
             
             try
             {
                 // Get counts for dashboard
                 var productCount = await _context.Products.Where(p => p.IsActive).CountAsync();
                 var orderCount = await _context.Orders.CountAsync();
-                var userCount = await _context.Users.Where(u => u.IsActive).CountAsync();
+                var userCount = await _context.RubyUsers.Where(u => u.IsActive).CountAsync();
                 var serviceRecordCount = await _context.ServiceRecords.Where(s => s.IsActive).CountAsync();
 
                 ViewBag.ProductCount = productCount;
@@ -99,14 +80,8 @@ namespace RubyElektronik.Controllers
         [Route("products")]
         public async Task<IActionResult> Products()
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
-
             ViewData["Title"] = "Ruby Elektronik - Ürün Yönetimi";
-            ViewBag.AdminUsername = HttpContext.Session.GetString("AdminUsername");
+            ViewBag.AdminUsername = User.Identity?.Name;
             
             try
             {
@@ -124,14 +99,8 @@ namespace RubyElektronik.Controllers
         [HttpGet]
         public IActionResult CreateProduct()
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
-
             ViewData["Title"] = "Ruby Elektronik - Yeni Ürün Ekle";
-            ViewBag.AdminUsername = HttpContext.Session.GetString("AdminUsername");
+            ViewBag.AdminUsername = User.Identity?.Name;
             return View();
         }
 
@@ -139,11 +108,6 @@ namespace RubyElektronik.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProduct(Product product, IFormFile? imageFile)
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
 
             if (!ModelState.IsValid) return View(product);
             
@@ -188,14 +152,8 @@ namespace RubyElektronik.Controllers
         [HttpGet]
         public async Task<IActionResult> EditProduct(int id)
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
-
             ViewData["Title"] = "Ruby Elektronik - Ürün Düzenle";
-            ViewBag.AdminUsername = HttpContext.Session.GetString("AdminUsername");
+            ViewBag.AdminUsername = User.Identity?.Name;
             
             try
             {
@@ -218,11 +176,6 @@ namespace RubyElektronik.Controllers
         [HttpPost]
         public async Task<IActionResult> EditProduct(int id, Product product, IFormFile? imageFile)
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
 
             if (!ModelState.IsValid) return View(product);
             
@@ -289,11 +242,6 @@ namespace RubyElektronik.Controllers
         [Route("products/delete/{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
 
             try
             {
@@ -321,14 +269,8 @@ namespace RubyElektronik.Controllers
         [Route("orders")]
         public async Task<IActionResult> Orders()
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
-
             ViewData["Title"] = "Ruby Elektronik - Sipariş Yönetimi";
-            ViewBag.AdminUsername = HttpContext.Session.GetString("AdminUsername");
+            ViewBag.AdminUsername = User.Identity?.Name;
             
             try
             {
@@ -346,14 +288,8 @@ namespace RubyElektronik.Controllers
         [HttpGet]
         public IActionResult CreateOrder()
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
-
             ViewData["Title"] = "Ruby Elektronik - Yeni Sipariş";
-            ViewBag.AdminUsername = HttpContext.Session.GetString("AdminUsername");
+            ViewBag.AdminUsername = User.Identity?.Name;
             return View();
         }
 
@@ -361,11 +297,6 @@ namespace RubyElektronik.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder(Order order)
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
 
             if (!ModelState.IsValid) return View(order);
             
@@ -388,11 +319,6 @@ namespace RubyElektronik.Controllers
         [Route("orders/delete/{id}")]
         public async Task<IActionResult> DeleteOrder(int id)
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
 
             try
             {
@@ -419,18 +345,12 @@ namespace RubyElektronik.Controllers
         [Route("users")]
         public async Task<IActionResult> Users()
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
-
             ViewData["Title"] = "Ruby Elektronik - Kullanıcı Yönetimi";
-            ViewBag.AdminUsername = HttpContext.Session.GetString("AdminUsername");
+            ViewBag.AdminUsername = User.Identity?.Name;
             
             try
             {
-                var users = await _context.Users.Where(u => u.IsActive).ToListAsync();
+                var users = await _context.RubyUsers.Where(u => u.IsActive).ToListAsync();
                 return View(users);
             }
             catch (Exception ex)
@@ -444,14 +364,8 @@ namespace RubyElektronik.Controllers
         [HttpGet]
         public IActionResult CreateUser()
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
-
             ViewData["Title"] = "Ruby Elektronik - Yeni Kullanıcı";
-            ViewBag.AdminUsername = HttpContext.Session.GetString("AdminUsername");
+            ViewBag.AdminUsername = User.Identity?.Name;
             return View();
         }
 
@@ -459,11 +373,6 @@ namespace RubyElektronik.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateUser(User user)
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
 
             // Custom validation for company name
             if (user.UserType == UserType.Corporate && string.IsNullOrWhiteSpace(user.CompanyName))
@@ -476,7 +385,7 @@ namespace RubyElektronik.Controllers
             try
             {
                 user.CreatedAt = DateTime.UtcNow;
-                _context.Users.Add(user);
+                _context.RubyUsers.Add(user);
                 await _context.SaveChangesAsync();
                 TempData["Success"] = "Kullanıcı başarıyla eklendi";
                 return RedirectToAction("Users");
@@ -491,15 +400,10 @@ namespace RubyElektronik.Controllers
         [Route("users/delete/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
 
             try
             {
-                var user = await _context.Users.FindAsync(id);
+                var user = await _context.RubyUsers.FindAsync(id);
                 if (user == null)
                 {
                     TempData["Error"] = "Kullanıcı bulunamadı";
@@ -523,14 +427,9 @@ namespace RubyElektronik.Controllers
         [Route("servicerecords")]
         public async Task<IActionResult> ServiceRecords()
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
 
             ViewData["Title"] = "Ruby Elektronik - Servis Kayıtları Yönetimi";
-            ViewBag.AdminUsername = HttpContext.Session.GetString("AdminUsername");
+            ViewBag.AdminUsername = User.Identity?.Name;
             
             try
             {
@@ -547,11 +446,6 @@ namespace RubyElektronik.Controllers
         [Route("servicerecords/complete/{id}")]
         public async Task<IActionResult> CompleteServiceRecord(int id)
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
 
             try
             {
@@ -578,11 +472,6 @@ namespace RubyElektronik.Controllers
         [Route("servicerecords/delete/{id}")]
         public async Task<IActionResult> DeleteServiceRecord(int id)
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
 
             try
             {
@@ -609,11 +498,6 @@ namespace RubyElektronik.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateServiceRecordCompletion(int id, string? completionDescription, decimal? completionPrice)
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
 
             try
             {
@@ -643,11 +527,6 @@ namespace RubyElektronik.Controllers
         [Route("servicerecords/pdf/{id}")]
         public async Task<IActionResult> DownloadServiceRecordPdf(int id)
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
 
             try
             {
@@ -673,11 +552,6 @@ namespace RubyElektronik.Controllers
         [Route("servicerecords/pdf/all")]
         public async Task<IActionResult> DownloadAllServiceRecordsPdf()
         {
-            // Giriş kontrolü
-            if (HttpContext.Session.GetString("AdminLoggedIn") != "true")
-            {
-                return RedirectToAction("Login");
-            }
 
             try
             {

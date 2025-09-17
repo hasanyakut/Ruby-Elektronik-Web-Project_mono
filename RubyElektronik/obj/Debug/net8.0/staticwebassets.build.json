@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ae7Z4iSy8IWVKKGdFIrQQsCdWFbfNLXICK4ZUG/gGkk=",
+  "Hash": "OzFQrDBPaevQXXP9AUI5aMc+TPVhkBqj+T7kix18U6M=",
   "Source": "RubyElektronik",
   "BasePath": "_content/RubyElektronik",
   "Mode": "Default",
@@ -4558,6 +4558,25 @@
       "OriginalItemSpec": "wwwroot\\uploads\\products\\61l0YWa+FtL._UF1000,1000_QL80__661eb765bf2f4ce4af7d3873d309cb01.jpg"
     },
     {
+      "Identity": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Project\\RubyElektronik\\wwwroot\\uploads\\products\\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_2d524db1bcfe452d8c2dd1dfae9ceff5.jpg",
+      "SourceId": "RubyElektronik",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Project\\RubyElektronik\\wwwroot\\",
+      "BasePath": "_content/RubyElektronik",
+      "RelativePath": "uploads/products/simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_2d524db1bcfe452d8c2dd1dfae9ceff5.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\products\\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_2d524db1bcfe452d8c2dd1dfae9ceff5.jpg"
+    },
+    {
       "Identity": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Project\\RubyElektronik\\wwwroot\\uploads\\products\\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_4d4d6f8c7f264473a4fe487703d541ef.jpg",
       "SourceId": "RubyElektronik",
       "SourceType": "Discovered",
@@ -4575,6 +4594,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\products\\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_4d4d6f8c7f264473a4fe487703d541ef.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Project\\RubyElektronik\\wwwroot\\uploads\\products\\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_9e173c8051be403ba8f896d8fa43cf79.jpg",
+      "SourceId": "RubyElektronik",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Project\\RubyElektronik\\wwwroot\\",
+      "BasePath": "_content/RubyElektronik",
+      "RelativePath": "uploads/products/simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_9e173c8051be403ba8f896d8fa43cf79.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\products\\simfer-50sfsa6b-127-ekran-50-android-led-4k-uhd-televizyon-1988112-10-B_9e173c8051be403ba8f896d8fa43cf79.jpg"
     },
     {
       "Identity": "C:\\Users\\hasan\\OneDrive\\Desktop\\Ruby-Elektronik-Web-Project\\RubyElektronik\\wwwroot\\uploads\\products\\WhatsApp Image 2025-07-12 at 21.57.31_f4194f1a_09b50d4ff40e4eebb3798f6278e6450d.jpg",

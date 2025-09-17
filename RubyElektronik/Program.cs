@@ -1,5 +1,11 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using RubyElektronik.Data;
+using RubyElektronik.Models;
+using RubyElektronik.Services;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +15,66 @@ builder.Services.AddControllersWithViews();
 // Add Entity Framework
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Add Identity services
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    // Password settings
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = true;
+    
+    // User settings
+    options.User.RequireUniqueEmail = true;
+    options.SignIn.RequireConfirmedEmail = false;
+})
+.AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
+
+// Configure application cookies for authentication
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Auth/Login";
+    options.LogoutPath = "/Auth/Logout";
+    options.AccessDeniedPath = "/Auth/Login";
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    options.SlidingExpiration = true;
+});
+
+// Add JWT service
+builder.Services.AddScoped<IJwtService, JwtService>();
+
+// Configure JWT authentication
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var secretKey = jwtSettings["SecretKey"] ?? "RubyElektronik_Super_Secret_Key_2024_Admin_Panel_Authentication_System_Key_123456789";
+var issuer = jwtSettings["Issuer"] ?? "RubyElektronik";
+var audience = jwtSettings["Audience"] ?? "RubyElektronikUsers";
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+    options.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
+})
+.AddJwtBearer("JwtBearer", options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey)),
+        ValidateIssuer = true,
+        ValidIssuer = issuer,
+        ValidateAudience = true,
+        ValidAudience = audience,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+// Add authorization
+builder.Services.AddAuthorization();
 
 // Add session support
 builder.Services.AddDistributedMemoryCache();
@@ -56,18 +122,28 @@ app.UseRouting();
 
 app.UseCors();
 
-app.UseSession();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
-// Ensure database is created
+app.UseSession();
+
+// Ensure database is created and seed data
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    
     context.Database.EnsureCreated();
+    
+    // Seed roles
+    await SeedRoles(roleManager);
+    
+    // Seed admin user
+    await SeedAdminUser(userManager);
 }
 
-// API Endpoints
+// Public API Endpoints (herkese açık)
 app.MapGet("/api/products", async (ApplicationDbContext context) =>
 {
     var products = await context.Products.Where(p => p.IsActive).ToListAsync();
@@ -80,13 +156,14 @@ app.MapGet("/api/products/{id}", async (int id, ApplicationDbContext context) =>
     return product is not null ? Results.Ok(product) : Results.NotFound();
 });
 
+// Admin-only API Endpoints (sadece admin yetkisi gerekli)
 app.MapPost("/api/products", async (RubyElektronik.Models.Product product, ApplicationDbContext context) =>
 {
     product.CreatedAt = DateTime.UtcNow;
     context.Products.Add(product);
     await context.SaveChangesAsync();
     return Results.Created($"/api/products/{product.Id}", product);
-});
+}).RequireAuthorization("Admin");
 
 app.MapPut("/api/products/{id}", async (int id, RubyElektronik.Models.Product updatedProduct, ApplicationDbContext context) =>
 {
@@ -102,7 +179,7 @@ app.MapPut("/api/products/{id}", async (int id, RubyElektronik.Models.Product up
     
     await context.SaveChangesAsync();
     return Results.Ok(product);
-});
+}).RequireAuthorization("Admin");
 
 app.MapDelete("/api/products/{id}", async (int id, ApplicationDbContext context) =>
 {
@@ -114,32 +191,32 @@ app.MapDelete("/api/products/{id}", async (int id, ApplicationDbContext context)
     await context.SaveChangesAsync();
     
     return Results.NoContent();
-});
+}).RequireAuthorization("Admin");
 
-// Users API
+// Admin-only Users API (sadece admin yetkisi gerekli)
 app.MapGet("/api/users", async (ApplicationDbContext context) =>
 {
-    var users = await context.Users.Where(u => u.IsActive).ToListAsync();
+    var users = await context.RubyUsers.Where(u => u.IsActive).ToListAsync();
     return Results.Ok(users);
-});
+}).RequireAuthorization("Admin");
 
 app.MapGet("/api/users/{id}", async (int id, ApplicationDbContext context) =>
 {
-    var user = await context.Users.FirstOrDefaultAsync(u => u.Id == id && u.IsActive);
+    var user = await context.RubyUsers.FirstOrDefaultAsync(u => u.Id == id && u.IsActive);
     return user is not null ? Results.Ok(user) : Results.NotFound();
-});
+}).RequireAuthorization("Admin");
 
 app.MapPost("/api/users", async (RubyElektronik.Models.User user, ApplicationDbContext context) =>
 {
     user.CreatedAt = DateTime.UtcNow;
-    context.Users.Add(user);
+    context.RubyUsers.Add(user);
     await context.SaveChangesAsync();
     return Results.Created($"/api/users/{user.Id}", user);
-});
+}).RequireAuthorization("Admin");
 
 app.MapPut("/api/users/{id}", async (int id, RubyElektronik.Models.User updatedUser, ApplicationDbContext context) =>
 {
-    var user = await context.Users.FindAsync(id);
+    var user = await context.RubyUsers.FindAsync(id);
     if (user == null) return Results.NotFound();
     
     user.Name = updatedUser.Name;
@@ -153,11 +230,11 @@ app.MapPut("/api/users/{id}", async (int id, RubyElektronik.Models.User updatedU
     
     await context.SaveChangesAsync();
     return Results.Ok(user);
-});
+}).RequireAuthorization("Admin");
 
 app.MapDelete("/api/users/{id}", async (int id, ApplicationDbContext context) =>
 {
-    var user = await context.Users.FindAsync(id);
+    var user = await context.RubyUsers.FindAsync(id);
     if (user == null) return Results.NotFound();
     
     user.IsActive = false;
@@ -165,20 +242,20 @@ app.MapDelete("/api/users/{id}", async (int id, ApplicationDbContext context) =>
     await context.SaveChangesAsync();
     
     return Results.NoContent();
-});
+}).RequireAuthorization("Admin");
 
-// Orders API
+// Admin-only Orders API (sadece admin yetkisi gerekli)
 app.MapGet("/api/orders", async (ApplicationDbContext context) =>
 {
     var orders = await context.Orders.ToListAsync();
     return Results.Ok(orders);
-});
+}).RequireAuthorization("Admin");
 
 app.MapGet("/api/orders/{id}", async (int id, ApplicationDbContext context) =>
 {
     var order = await context.Orders.FirstOrDefaultAsync(o => o.Id == id);
     return order is not null ? Results.Ok(order) : Results.NotFound();
-});
+}).RequireAuthorization("Admin");
 
 app.MapPost("/api/orders", async (RubyElektronik.Models.Order order, ApplicationDbContext context) =>
 {
@@ -187,7 +264,7 @@ app.MapPost("/api/orders", async (RubyElektronik.Models.Order order, Application
     context.Orders.Add(order);
     await context.SaveChangesAsync();
     return Results.Created($"/api/orders/{order.Id}", order);
-});
+}).RequireAuthorization("Admin");
 
 app.MapPut("/api/orders/{id}", async (int id, RubyElektronik.Models.Order updatedOrder, ApplicationDbContext context) =>
 {
@@ -207,7 +284,7 @@ app.MapPut("/api/orders/{id}", async (int id, RubyElektronik.Models.Order update
     
     await context.SaveChangesAsync();
     return Results.Ok(order);
-});
+}).RequireAuthorization("Admin");
 
 app.MapDelete("/api/orders/{id}", async (int id, ApplicationDbContext context) =>
 {
@@ -218,27 +295,10 @@ app.MapDelete("/api/orders/{id}", async (int id, ApplicationDbContext context) =
     await context.SaveChangesAsync();
     
     return Results.NoContent();
-});
+}).RequireAuthorization("Admin");
 
 // Service Records API
-app.MapGet("/api/servicerecords", async (ApplicationDbContext context) =>
-{
-    var serviceRecords = await context.ServiceRecords.Where(s => s.IsActive).ToListAsync();
-    return Results.Ok(serviceRecords);
-});
-
-app.MapGet("/api/servicerecords/all", async (ApplicationDbContext context) =>
-{
-    var serviceRecords = await context.ServiceRecords.ToListAsync();
-    return Results.Ok(serviceRecords);
-});
-
-app.MapGet("/api/servicerecords/{id}", async (int id, ApplicationDbContext context) =>
-{
-    var serviceRecord = await context.ServiceRecords.FirstOrDefaultAsync(s => s.Id == id && s.IsActive);
-    return serviceRecord is not null ? Results.Ok(serviceRecord) : Results.NotFound();
-});
-
+// Public endpoints (herkese açık)
 app.MapPost("/api/servicerecords", async (RubyElektronik.Models.ServiceRecord serviceRecord, ApplicationDbContext context) =>
 {
     serviceRecord.CreatedAt = DateTime.UtcNow;
@@ -246,6 +306,26 @@ app.MapPost("/api/servicerecords", async (RubyElektronik.Models.ServiceRecord se
     await context.SaveChangesAsync();
     return Results.Created($"/api/servicerecords/{serviceRecord.Id}", serviceRecord);
 });
+
+// Admin-only endpoints (sadece admin yetkisi gerekli)
+app.MapGet("/api/servicerecords", async (ApplicationDbContext context) =>
+{
+    var serviceRecords = await context.ServiceRecords.Where(s => s.IsActive).ToListAsync();
+    return Results.Ok(serviceRecords);
+}).RequireAuthorization("Admin");
+
+app.MapGet("/api/servicerecords/{id}", async (int id, ApplicationDbContext context) =>
+{
+    var serviceRecord = await context.ServiceRecords.FirstOrDefaultAsync(s => s.Id == id && s.IsActive);
+    return serviceRecord is not null ? Results.Ok(serviceRecord) : Results.NotFound();
+}).RequireAuthorization("Admin");
+
+// Admin-only endpoints (sadece admin yetkisi gerekli)
+app.MapGet("/api/servicerecords/all", async (ApplicationDbContext context) =>
+{
+    var serviceRecords = await context.ServiceRecords.ToListAsync();
+    return Results.Ok(serviceRecords);
+}).RequireAuthorization("Admin");
 
 app.MapPut("/api/servicerecords/{id}", async (int id, RubyElektronik.Models.ServiceRecord updatedServiceRecord, ApplicationDbContext context) =>
 {
@@ -264,7 +344,7 @@ app.MapPut("/api/servicerecords/{id}", async (int id, RubyElektronik.Models.Serv
     
     await context.SaveChangesAsync();
     return Results.Ok(serviceRecord);
-});
+}).RequireAuthorization("Admin");
 
 app.MapDelete("/api/servicerecords/{id}", async (int id, ApplicationDbContext context) =>
 {
@@ -276,7 +356,7 @@ app.MapDelete("/api/servicerecords/{id}", async (int id, ApplicationDbContext co
     await context.SaveChangesAsync();
     
     return Results.NoContent();
-});
+}).RequireAuthorization("Admin");
 
 app.MapDelete("/api/servicerecords/{id}/permanent", async (int id, ApplicationDbContext context) =>
 {
@@ -287,7 +367,7 @@ app.MapDelete("/api/servicerecords/{id}/permanent", async (int id, ApplicationDb
     await context.SaveChangesAsync();
     
     return Results.NoContent();
-});
+}).RequireAuthorization("Admin");
 
 app.MapPut("/api/servicerecords/{id}/complete", async (int id, ApplicationDbContext context) =>
 {
@@ -299,10 +379,49 @@ app.MapPut("/api/servicerecords/{id}/complete", async (int id, ApplicationDbCont
     await context.SaveChangesAsync();
     
     return Results.Ok(serviceRecord);
-});
+}).RequireAuthorization("Admin");
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+// Seeding methods
+async Task SeedRoles(RoleManager<IdentityRole> roleManager)
+{
+    string[] roles = { "Admin", "User" };
+    
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+}
+
+async Task SeedAdminUser(UserManager<ApplicationUser> userManager)
+{
+    var adminEmail = "admin@rubyelektronik.com";
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+    
+    if (adminUser == null)
+    {
+        adminUser = new ApplicationUser
+        {
+            UserName = "admin",
+            Email = adminEmail,
+            FirstName = "Admin",
+            LastName = "User",
+            CreatedAt = DateTime.UtcNow,
+            IsActive = true
+        };
+        
+        var result = await userManager.CreateAsync(adminUser, "Admin123!");
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(adminUser, "Admin");
+        }
+    }
+}
