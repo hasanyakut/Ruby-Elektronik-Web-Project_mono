@@ -69,10 +69,10 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> ServisKayit(ServiceRecord model)
+    public async Task<IActionResult> ServisKayit(ServiceRecord serviceRecord)
     {
         // Custom validation for company name
-        if (model.UserType == ServiceUserType.Corporate && string.IsNullOrWhiteSpace(model.FirmaAdi))
+        if (serviceRecord.UserType == ServiceUserType.Corporate && string.IsNullOrWhiteSpace(serviceRecord.FirmaAdi))
         {
             ModelState.AddModelError("FirmaAdi", "Kurumsal kullanıcılar için firma adı zorunludur");
         }
@@ -81,8 +81,8 @@ public class HomeController : Controller
         {
             try
             {
-                model.CreatedAt = DateTime.UtcNow;
-                _context.ServiceRecords.Add(model);
+                serviceRecord.CreatedAt = DateTime.UtcNow;
+                _context.ServiceRecords.Add(serviceRecord);
                 await _context.SaveChangesAsync();
                 ViewBag.Basarili = true;
             }

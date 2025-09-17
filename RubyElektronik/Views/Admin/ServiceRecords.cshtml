@@ -59,6 +59,8 @@
                                         <th>Firma Adı</th>
                                         <th>Telefon</th>
                                         <th>Ürün Türü</th>
+                                        <th>Marka</th>
+                                        <th>Model</th>
                                         <th>Arıza Açıklaması</th>
                                         <th>Kayıt Tarihi</th>
                                         <th>İşlemler</th>
@@ -82,7 +84,34 @@
                                             </td>
                                             <td>@(kayit.FirmaAdi ?? "-")</td>
                                             <td>@kayit.TelefonNumarasi</td>
-                                            <td>@kayit.UrunTuru</td>
+                                            <td>
+                                                @switch (kayit.UrunTuru)
+                                                {
+                                                    case RubyElektronik.Models.ProductType.Televizyon:
+                                                        <span>Televizyon</span>
+                                                        break;
+                                                    case RubyElektronik.Models.ProductType.Notebook:
+                                                        <span>Notebook</span>
+                                                        break;
+                                                    case RubyElektronik.Models.ProductType.Bilgisayar:
+                                                        <span>Bilgisayar</span>
+                                                        break;
+                                                    case RubyElektronik.Models.ProductType.Telefon:
+                                                        <span>Telefon</span>
+                                                        break;
+                                                    case RubyElektronik.Models.ProductType.ElektronikKart:
+                                                        <span>Elektronik Kart</span>
+                                                        break;
+                                                    case RubyElektronik.Models.ProductType.KucukEvAletleri:
+                                                        <span>Küçük Ev Aletleri</span>
+                                                        break;
+                                                    default:
+                                                        <span>@kayit.UrunTuru</span>
+                                                        break;
+                                                }
+                                            </td>
+                                            <td>@(kayit.Marka ?? "-")</td>
+                                            <td>@(kayit.Model ?? "-")</td>
                                             <td style="white-space: normal;">
                                                 <div style="max-width: none; overflow-wrap: anywhere;">
                                                     @kayit.ArizaAciklamasi
@@ -143,6 +172,8 @@
                                         <th>Firma Adı</th>
                                         <th>Telefon</th>
                                         <th>Ürün Türü</th>
+                                        <th>Marka</th>
+                                        <th>Model</th>
                                         <th>Arıza Açıklaması</th>
                                         <th>Kayıt Tarihi</th>
                                         <th>Tamamlanma Tarihi</th>
@@ -167,7 +198,34 @@
                                             </td>
                                             <td>@(kayit.FirmaAdi ?? "-")</td>
                                             <td>@kayit.TelefonNumarasi</td>
-                                            <td>@kayit.UrunTuru</td>
+                                            <td>
+                                                @switch (kayit.UrunTuru)
+                                                {
+                                                    case RubyElektronik.Models.ProductType.Televizyon:
+                                                        <span>Televizyon</span>
+                                                        break;
+                                                    case RubyElektronik.Models.ProductType.Notebook:
+                                                        <span>Notebook</span>
+                                                        break;
+                                                    case RubyElektronik.Models.ProductType.Bilgisayar:
+                                                        <span>Bilgisayar</span>
+                                                        break;
+                                                    case RubyElektronik.Models.ProductType.Telefon:
+                                                        <span>Telefon</span>
+                                                        break;
+                                                    case RubyElektronik.Models.ProductType.ElektronikKart:
+                                                        <span>Elektronik Kart</span>
+                                                        break;
+                                                    case RubyElektronik.Models.ProductType.KucukEvAletleri:
+                                                        <span>Küçük Ev Aletleri</span>
+                                                        break;
+                                                    default:
+                                                        <span>@kayit.UrunTuru</span>
+                                                        break;
+                                                }
+                                            </td>
+                                            <td>@(kayit.Marka ?? "-")</td>
+                                            <td>@(kayit.Model ?? "-")</td>
                                             <td style="white-space: normal;">
                                                 <div style="max-width: none; overflow-wrap: anywhere;">
                                                     @kayit.ArizaAciklamasi

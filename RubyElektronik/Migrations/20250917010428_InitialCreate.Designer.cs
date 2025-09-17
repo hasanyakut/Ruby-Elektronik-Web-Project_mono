@@ -12,7 +12,7 @@ using RubyElektronik.Data;
 namespace RubyElektronik.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250912001109_InitialCreate")]
+    [Migration("20250917010428_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace RubyElektronik.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("frontend.Models.Order", b =>
+            modelBuilder.Entity("RubyElektronik.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,7 +85,7 @@ namespace RubyElektronik.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 9, 7, 0, 11, 9, 159, DateTimeKind.Utc).AddTicks(4562),
+                            CreatedAt = new DateTime(2025, 9, 12, 1, 4, 27, 551, DateTimeKind.Utc).AddTicks(4364),
                             ProductId = 1,
                             ProductName = "Samsung 55\" 4K Smart TV",
                             Quantity = 2,
@@ -98,7 +98,7 @@ namespace RubyElektronik.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 9, 10, 0, 11, 9, 159, DateTimeKind.Utc).AddTicks(4576),
+                            CreatedAt = new DateTime(2025, 9, 15, 1, 4, 27, 551, DateTimeKind.Utc).AddTicks(4375),
                             ProductId = 2,
                             ProductName = "iPhone 15 Pro 128GB",
                             Quantity = 1,
@@ -110,7 +110,7 @@ namespace RubyElektronik.Migrations
                         });
                 });
 
-            modelBuilder.Entity("frontend.Models.Product", b =>
+            modelBuilder.Entity("RubyElektronik.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,6 +130,9 @@ namespace RubyElektronik.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -154,7 +157,7 @@ namespace RubyElektronik.Migrations
                         {
                             Id = 1,
                             Category = "Televizyon",
-                            CreatedAt = new DateTime(2025, 9, 12, 0, 11, 9, 159, DateTimeKind.Utc).AddTicks(3621),
+                            CreatedAt = new DateTime(2025, 9, 17, 1, 4, 27, 551, DateTimeKind.Utc).AddTicks(3975),
                             Description = "55 inç 4K Ultra HD Smart LED TV",
                             IsActive = true,
                             Name = "Samsung 55\" 4K Smart TV",
@@ -164,7 +167,7 @@ namespace RubyElektronik.Migrations
                         {
                             Id = 2,
                             Category = "Telefon",
-                            CreatedAt = new DateTime(2025, 9, 12, 0, 11, 9, 159, DateTimeKind.Utc).AddTicks(3625),
+                            CreatedAt = new DateTime(2025, 9, 17, 1, 4, 27, 551, DateTimeKind.Utc).AddTicks(3979),
                             Description = "Apple iPhone 15 Pro 128GB Titanium",
                             IsActive = true,
                             Name = "iPhone 15 Pro 128GB",
@@ -174,7 +177,7 @@ namespace RubyElektronik.Migrations
                         {
                             Id = 3,
                             Category = "Bilgisayar",
-                            CreatedAt = new DateTime(2025, 9, 12, 0, 11, 9, 159, DateTimeKind.Utc).AddTicks(3627),
+                            CreatedAt = new DateTime(2025, 9, 17, 1, 4, 27, 551, DateTimeKind.Utc).AddTicks(4051),
                             Description = "Apple MacBook Air M2 13 inç 256GB SSD",
                             IsActive = true,
                             Name = "MacBook Air M2 13\" 256GB",
@@ -182,7 +185,7 @@ namespace RubyElektronik.Migrations
                         });
                 });
 
-            modelBuilder.Entity("frontend.Models.ServiceRecord", b =>
+            modelBuilder.Entity("RubyElektronik.Models.ServiceRecord", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -200,6 +203,13 @@ namespace RubyElektronik.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<string>("CompletionDescription")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<decimal?>("CompletionPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -211,6 +221,14 @@ namespace RubyElektronik.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Marka")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Model")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Soyad")
                         .IsRequired()
@@ -225,10 +243,8 @@ namespace RubyElektronik.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UrunTuru")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("UrunTuru")
+                        .HasColumnType("int");
 
                     b.Property<int>("UserType")
                         .HasColumnType("int");
@@ -247,7 +263,7 @@ namespace RubyElektronik.Migrations
                             IsActive = true,
                             Soyad = "Yılmaz",
                             TelefonNumarasi = "+90 555 123 4567",
-                            UrunTuru = "Samsung TV",
+                            UrunTuru = 0,
                             UserType = 0
                         },
                         new
@@ -260,7 +276,7 @@ namespace RubyElektronik.Migrations
                             IsActive = true,
                             Soyad = "Demir",
                             TelefonNumarasi = "+90 212 555 1234",
-                            UrunTuru = "HP Laptop",
+                            UrunTuru = 1,
                             UserType = 1
                         },
                         new
@@ -272,12 +288,12 @@ namespace RubyElektronik.Migrations
                             IsActive = true,
                             Soyad = "Kaya",
                             TelefonNumarasi = "+90 532 987 6543",
-                            UrunTuru = "iPhone 14",
+                            UrunTuru = 3,
                             UserType = 0
                         });
                 });
 
-            modelBuilder.Entity("frontend.Models.User", b =>
+            modelBuilder.Entity("RubyElektronik.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -334,7 +350,7 @@ namespace RubyElektronik.Migrations
                         {
                             Id = 1,
                             Address = "İstanbul, Türkiye",
-                            CreatedAt = new DateTime(2025, 9, 12, 0, 11, 9, 159, DateTimeKind.Utc).AddTicks(4515),
+                            CreatedAt = new DateTime(2025, 9, 17, 1, 4, 27, 551, DateTimeKind.Utc).AddTicks(4314),
                             Email = "ahmet@example.com",
                             IsActive = true,
                             Name = "Ahmet Yılmaz",
@@ -346,7 +362,7 @@ namespace RubyElektronik.Migrations
                             Id = 2,
                             Address = "Abdullahazam Cd. NO:28/A, Huzur Mahallesi, 34773 Ümraniye/İstanbul",
                             CompanyName = "ABC Elektronik Ltd. Şti.",
-                            CreatedAt = new DateTime(2025, 9, 12, 0, 11, 9, 159, DateTimeKind.Utc).AddTicks(4518),
+                            CreatedAt = new DateTime(2025, 9, 17, 1, 4, 27, 551, DateTimeKind.Utc).AddTicks(4320),
                             Email = "info@abcelektronik.com",
                             IsActive = true,
                             Name = "ABC Elektronik Ltd. Şti.",
@@ -358,7 +374,7 @@ namespace RubyElektronik.Migrations
                             Id = 3,
                             Address = "Abdullahazam Cd. NO:28/A, Huzur Mahallesi, 34773 Ümraniye/İstanbul",
                             CompanyName = "Ruby Elektronik",
-                            CreatedAt = new DateTime(2025, 9, 12, 0, 11, 9, 159, DateTimeKind.Utc).AddTicks(4521),
+                            CreatedAt = new DateTime(2025, 9, 17, 1, 4, 27, 551, DateTimeKind.Utc).AddTicks(4323),
                             Email = "hasanhuseyinyakut@gmail.com",
                             IsActive = true,
                             Name = "Ruby Elektronik",

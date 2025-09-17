@@ -9,6 +9,16 @@ namespace RubyElektronik.Models
         Corporate
     }
 
+    public enum ProductType
+    {
+        Televizyon,
+        Notebook,
+        Bilgisayar,
+        Telefon,
+        ElektronikKart,
+        KucukEvAletleri
+    }
+
     public class ServiceRecord
     {
         public int Id { get; set; }
@@ -36,9 +46,16 @@ namespace RubyElektronik.Models
         public string TelefonNumarasi { get; set; } = string.Empty;
         
         [Required(ErrorMessage = "Ürün türü zorunludur")]
-        [StringLength(100, MinimumLength = 2, ErrorMessage = "Ürün türü 2-100 karakter arasında olmalıdır")]
         [Display(Name = "Ürün Türü")]
-        public string UrunTuru { get; set; } = string.Empty;
+        public ProductType UrunTuru { get; set; }
+        
+        [Display(Name = "Marka")]
+        [StringLength(50, ErrorMessage = "Marka adı 50 karakteri aşmamalıdır")]
+        public string? Marka { get; set; }
+        
+        [Display(Name = "Model")]
+        [StringLength(50, ErrorMessage = "Model adı 50 karakteri aşmamalıdır")]
+        public string? Model { get; set; }
         
         [Required(ErrorMessage = "Arıza açıklaması zorunludur")]
         [StringLength(500, MinimumLength = 10, ErrorMessage = "Arıza açıklaması en az 10 karakter olmalıdır")]

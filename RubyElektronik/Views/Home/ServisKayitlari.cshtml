@@ -12,6 +12,8 @@
             <th>Firma Adı</th>
             <th>Telefon</th>
             <th>Ürün Türü</th>
+            <th>Marka</th>
+            <th>Model</th>
             <th>Arıza Açıklaması</th>
         </tr>
     </thead>
@@ -33,7 +35,34 @@
                 </td>
                 <td>@(kayit.FirmaAdi ?? "-")</td>
                 <td>@kayit.TelefonNumarasi</td>
-                <td>@kayit.UrunTuru</td>
+                <td>
+                    @switch (kayit.UrunTuru)
+                    {
+                        case RubyElektronik.Models.ProductType.Televizyon:
+                            <span>Televizyon</span>
+                            break;
+                        case RubyElektronik.Models.ProductType.Notebook:
+                            <span>Notebook</span>
+                            break;
+                        case RubyElektronik.Models.ProductType.Bilgisayar:
+                            <span>Bilgisayar</span>
+                            break;
+                        case RubyElektronik.Models.ProductType.Telefon:
+                            <span>Telefon</span>
+                            break;
+                        case RubyElektronik.Models.ProductType.ElektronikKart:
+                            <span>Elektronik Kart</span>
+                            break;
+                        case RubyElektronik.Models.ProductType.KucukEvAletleri:
+                            <span>Küçük Ev Aletleri</span>
+                            break;
+                        default:
+                            <span>@kayit.UrunTuru</span>
+                            break;
+                    }
+                </td>
+                <td>@(kayit.Marka ?? "-")</td>
+                <td>@(kayit.Model ?? "-")</td>
                 <td>
                     <div style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" 
                          title="@kayit.ArizaAciklamasi">

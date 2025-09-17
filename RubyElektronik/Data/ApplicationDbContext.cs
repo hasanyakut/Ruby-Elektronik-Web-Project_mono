@@ -74,8 +74,11 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.UserType).IsRequired();
             entity.Property(e => e.FirmaAdi).HasMaxLength(100);
             entity.Property(e => e.TelefonNumarasi).IsRequired().HasMaxLength(20);
-            entity.Property(e => e.UrunTuru).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.UrunTuru).IsRequired().HasConversion<int>();
+            entity.Property(e => e.Marka).HasMaxLength(50);
+            entity.Property(e => e.Model).HasMaxLength(50);
             entity.Property(e => e.ArizaAciklamasi).IsRequired().HasMaxLength(500);
+            entity.Property(e => e.CompletionPrice).HasColumnType("decimal(18,2)");
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETDATE()");
         });
 
@@ -192,7 +195,7 @@ public class ApplicationDbContext : DbContext
                 Soyad = "Yılmaz",
                 UserType = ServiceUserType.Individual,
                 TelefonNumarasi = "+90 555 123 4567",
-                UrunTuru = "Samsung TV",
+                UrunTuru = ProductType.Televizyon,
                 ArizaAciklamasi = "Televizyon açılmıyor, güç düğmesine bastığımda hiçbir tepki vermiyor.",
                 IsActive = true,
                 CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc)
@@ -205,7 +208,7 @@ public class ApplicationDbContext : DbContext
                 UserType = ServiceUserType.Corporate,
                 FirmaAdi = "ABC Şirketi",
                 TelefonNumarasi = "+90 212 555 1234",
-                UrunTuru = "HP Laptop",
+                UrunTuru = ProductType.Notebook,
                 ArizaAciklamasi = "Laptop çok ısınıyor ve fan sesi çok yüksek çıkıyor. Performans düşüklüğü yaşıyoruz.",
                 IsActive = true,
                 CreatedAt = new DateTime(2025, 1, 2, 0, 0, 0, DateTimeKind.Utc)
@@ -217,7 +220,7 @@ public class ApplicationDbContext : DbContext
                 Soyad = "Kaya",
                 UserType = ServiceUserType.Individual,
                 TelefonNumarasi = "+90 532 987 6543",
-                UrunTuru = "iPhone 14",
+                UrunTuru = ProductType.Telefon,
                 ArizaAciklamasi = "Telefonun ekranında çizikler var ve batarya çok hızlı bitiyor.",
                 IsActive = true,
                 CreatedAt = new DateTime(2025, 1, 3, 0, 0, 0, DateTimeKind.Utc)

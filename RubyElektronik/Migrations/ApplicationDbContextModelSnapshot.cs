@@ -82,7 +82,7 @@ namespace RubyElektronik.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2025, 9, 11, 17, 15, 54, 920, DateTimeKind.Utc).AddTicks(2697),
+                            CreatedAt = new DateTime(2025, 9, 12, 1, 5, 15, 325, DateTimeKind.Utc).AddTicks(6234),
                             ProductId = 1,
                             ProductName = "Samsung 55\" 4K Smart TV",
                             Quantity = 2,
@@ -95,7 +95,7 @@ namespace RubyElektronik.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2025, 9, 14, 17, 15, 54, 920, DateTimeKind.Utc).AddTicks(2705),
+                            CreatedAt = new DateTime(2025, 9, 15, 1, 5, 15, 325, DateTimeKind.Utc).AddTicks(6247),
                             ProductId = 2,
                             ProductName = "iPhone 15 Pro 128GB",
                             Quantity = 1,
@@ -154,7 +154,7 @@ namespace RubyElektronik.Migrations
                         {
                             Id = 1,
                             Category = "Televizyon",
-                            CreatedAt = new DateTime(2025, 9, 16, 17, 15, 54, 920, DateTimeKind.Utc).AddTicks(2538),
+                            CreatedAt = new DateTime(2025, 9, 17, 1, 5, 15, 325, DateTimeKind.Utc).AddTicks(5967),
                             Description = "55 inç 4K Ultra HD Smart LED TV",
                             IsActive = true,
                             Name = "Samsung 55\" 4K Smart TV",
@@ -164,7 +164,7 @@ namespace RubyElektronik.Migrations
                         {
                             Id = 2,
                             Category = "Telefon",
-                            CreatedAt = new DateTime(2025, 9, 16, 17, 15, 54, 920, DateTimeKind.Utc).AddTicks(2541),
+                            CreatedAt = new DateTime(2025, 9, 17, 1, 5, 15, 325, DateTimeKind.Utc).AddTicks(5970),
                             Description = "Apple iPhone 15 Pro 128GB Titanium",
                             IsActive = true,
                             Name = "iPhone 15 Pro 128GB",
@@ -174,7 +174,7 @@ namespace RubyElektronik.Migrations
                         {
                             Id = 3,
                             Category = "Bilgisayar",
-                            CreatedAt = new DateTime(2025, 9, 16, 17, 15, 54, 920, DateTimeKind.Utc).AddTicks(2543),
+                            CreatedAt = new DateTime(2025, 9, 17, 1, 5, 15, 325, DateTimeKind.Utc).AddTicks(5972),
                             Description = "Apple MacBook Air M2 13 inç 256GB SSD",
                             IsActive = true,
                             Name = "MacBook Air M2 13\" 256GB",
@@ -219,6 +219,14 @@ namespace RubyElektronik.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Marka")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Model")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("Soyad")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -232,10 +240,8 @@ namespace RubyElektronik.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UrunTuru")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("UrunTuru")
+                        .HasColumnType("int");
 
                     b.Property<int>("UserType")
                         .HasColumnType("int");
@@ -254,7 +260,7 @@ namespace RubyElektronik.Migrations
                             IsActive = true,
                             Soyad = "Yılmaz",
                             TelefonNumarasi = "+90 555 123 4567",
-                            UrunTuru = "Samsung TV",
+                            UrunTuru = 0,
                             UserType = 0
                         },
                         new
@@ -267,7 +273,7 @@ namespace RubyElektronik.Migrations
                             IsActive = true,
                             Soyad = "Demir",
                             TelefonNumarasi = "+90 212 555 1234",
-                            UrunTuru = "HP Laptop",
+                            UrunTuru = 1,
                             UserType = 1
                         },
                         new
@@ -279,7 +285,7 @@ namespace RubyElektronik.Migrations
                             IsActive = true,
                             Soyad = "Kaya",
                             TelefonNumarasi = "+90 532 987 6543",
-                            UrunTuru = "iPhone 14",
+                            UrunTuru = 3,
                             UserType = 0
                         });
                 });
@@ -341,7 +347,7 @@ namespace RubyElektronik.Migrations
                         {
                             Id = 1,
                             Address = "İstanbul, Türkiye",
-                            CreatedAt = new DateTime(2025, 9, 16, 17, 15, 54, 920, DateTimeKind.Utc).AddTicks(2673),
+                            CreatedAt = new DateTime(2025, 9, 17, 1, 5, 15, 325, DateTimeKind.Utc).AddTicks(6198),
                             Email = "ahmet@example.com",
                             IsActive = true,
                             Name = "Ahmet Yılmaz",
@@ -353,7 +359,7 @@ namespace RubyElektronik.Migrations
                             Id = 2,
                             Address = "Abdullahazam Cd. NO:28/A, Huzur Mahallesi, 34773 Ümraniye/İstanbul",
                             CompanyName = "ABC Elektronik Ltd. Şti.",
-                            CreatedAt = new DateTime(2025, 9, 16, 17, 15, 54, 920, DateTimeKind.Utc).AddTicks(2676),
+                            CreatedAt = new DateTime(2025, 9, 17, 1, 5, 15, 325, DateTimeKind.Utc).AddTicks(6200),
                             Email = "info@abcelektronik.com",
                             IsActive = true,
                             Name = "ABC Elektronik Ltd. Şti.",
@@ -365,7 +371,7 @@ namespace RubyElektronik.Migrations
                             Id = 3,
                             Address = "Abdullahazam Cd. NO:28/A, Huzur Mahallesi, 34773 Ümraniye/İstanbul",
                             CompanyName = "Ruby Elektronik",
-                            CreatedAt = new DateTime(2025, 9, 16, 17, 15, 54, 920, DateTimeKind.Utc).AddTicks(2678),
+                            CreatedAt = new DateTime(2025, 9, 17, 1, 5, 15, 325, DateTimeKind.Utc).AddTicks(6203),
                             Email = "hasanhuseyinyakut@gmail.com",
                             IsActive = true,
                             Name = "Ruby Elektronik",

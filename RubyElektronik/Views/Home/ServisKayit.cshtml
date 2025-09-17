@@ -42,8 +42,32 @@
                 </div>
                 <div class="mb-3">
                     <label asp-for="UrunTuru" class="form-label"></label>
-                    <input asp-for="UrunTuru" class="form-control" />
+                    <select asp-for="UrunTuru" class="form-control">
+                        <option value="">Ürün türü seçiniz</option>
+                        <option value="0">Televizyon</option>
+                        <option value="1">Notebook</option>
+                        <option value="2">Bilgisayar</option>
+                        <option value="3">Telefon</option>
+                        <option value="4">Elektronik Kart</option>
+                        <option value="5">Küçük Ev Aletleri</option>
+                    </select>
                     <span asp-validation-for="UrunTuru" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="Marka" class="form-label"></label>
+                            <input asp-for="Marka" class="form-control" placeholder="Örn: Samsung, Apple, HP" />
+                            <span asp-validation-for="Marka" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="Model" class="form-label"></label>
+                            <input asp-for="Model" class="form-control" placeholder="Örn: Galaxy S23, MacBook Pro" />
+                            <span asp-validation-for="Model" class="text-danger"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label asp-for="ArizaAciklamasi" class="form-label"></label>
