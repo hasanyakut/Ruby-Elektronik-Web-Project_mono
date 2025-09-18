@@ -154,7 +154,7 @@
     /* Services Section */
     .services-section {
         padding: 4rem 0;
-        background: rgba(255, 255, 255, 0.02);
+        background: transparent;
     }
     
     .services-grid {
@@ -368,6 +368,218 @@
         
         .footer-widget {
             text-align: center;
+        }
+    }
+    
+    /* Services Slider Styles */
+    .services-slider-container {
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 0;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        padding-bottom: 1rem;
+    }
+    
+    .services-slider {
+        position: relative;
+        height: 550px;
+        overflow: hidden;
+    }
+    
+    .slider-slide {
+        min-width: 100%;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.5s ease-in-out;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .slider-slide.active {
+        opacity: 1;
+        transform: translateX(0);
+        position: relative;
+    }
+    
+    .slide-content {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 3rem;
+        gap: 3rem;
+    }
+    
+    .slide-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .slide-image img {
+        max-width: 100%;
+        max-height: 800px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+        transition: transform 0.3s ease;
+    }
+    
+    .slide-image img:hover {
+        transform: scale(1.05);
+    }
+    
+    .slide-text {
+        flex: 1;
+        color: white;
+        padding: 2rem;
+    }
+    
+    .slide-text h3 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: #ffd700;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .slide-text p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: #e0e0e0;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        margin: 0;
+    }
+    
+    .slider-navigation {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1rem;
+        pointer-events: none;
+        z-index: 10;
+    }
+    
+    .slider-btn {
+        background: rgba(0, 0, 0, 0.4);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        pointer-events: all;
+        font-size: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .slider-btn:hover {
+        background: rgba(102, 126, 234, 0.8);
+        border-color: rgba(102, 126, 234, 1);
+        transform: scale(1.1);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+    
+    .slider-dots {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+    }
+    
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .dot.active {
+        background: #667eea;
+        transform: scale(1.2);
+        box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+    }
+    
+    .dot:hover {
+        background: rgba(102, 126, 234, 0.7);
+        transform: scale(1.1);
+    }
+    
+    /* Mobile responsive for slider */
+    @@media (max-width: 768px) {
+        .slide-content {
+            flex-direction: column;
+            padding: 2rem;
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .slide-text h3 {
+            font-size: 2rem;
+        }
+        
+        .slide-text p {
+            font-size: 1rem;
+        }
+        
+        .slide-image img {
+            max-height: 500px;
+        }
+        
+        .services-slider {
+            height: auto;
+            min-height: 450px;
+        }
+        
+        .slider-navigation {
+            padding: 0 1rem;
+        }
+        
+        .slider-btn {
+            width: 45px;
+            height: 45px;
+            font-size: 0.9rem;
+        }
+    }
+    
+    @@media (max-width: 480px) {
+        .slide-content {
+            padding: 1.5rem;
+        }
+        
+        .slide-text h3 {
+            font-size: 1.8rem;
+        }
+        
+        .slide-text p {
+            font-size: 0.9rem;
+        }
+        
+        .slide-image img {
+            max-height: 400px;
         }
     }
     
@@ -702,7 +914,7 @@
 </div>
 
 <!-- Services Section -->
-<div class="services-section" id="services" style="padding: 4rem 0; background: rgba(255, 255, 255, 0.02);">
+<div class="services-section" id="services" style="padding: 4rem 0; background: transparent;">
     <div class="container">
         <h2 class="section-title text-center mb-5">
             <i class="fas fa-tools me-2"></i>Hizmetlerimiz
@@ -768,6 +980,114 @@
     </div>
 </div>
 
+<!-- Services Slider Section -->
+<div class="services-slider-section" id="services-slider" style="padding: 4rem 0; background: transparent;">
+    <div class="container">
+        
+        <div class="services-slider-container">
+            <div class="services-slider" id="servicesSlider">
+                <!-- Slide 1 - Bilgisayar -->
+                <div class="slider-slide active">
+                    <div class="slide-content">
+                        <div class="slide-image">
+                            <img src="/img/hizmet_bilgisayar.png" alt="Bilgisayar Tamiri" />
+                        </div>
+                        <div class="slide-text">
+                            <h3>Bilgisayar Tamiri</h3>
+                            <p>Masaüstü ve dizüstü bilgisayarlarınızın tüm donanım ve yazılım sorunlarını profesyonel ekibimizle çözüyoruz. Anakart, işlemci, RAM, hard disk ve diğer bileşenlerin tamiri konusunda uzmanız.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 2 - Laptop -->
+                <div class="slider-slide">
+                    <div class="slide-content">
+                        <div class="slide-image">
+                            <img src="/img/hizmet_laptop.png" alt="Laptop Tamiri" />
+                        </div>
+                        <div class="slide-text">
+                            <h3>Laptop Tamiri</h3>
+                            <p>Notebook ve laptop cihazlarınızın ekran, klavye, batarya, şarj girişi ve diğer tüm donanım sorunlarını hızlı ve güvenilir şekilde çözüyoruz. Tüm marka ve modeller için hizmet veriyoruz.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 3 - Telefon -->
+                <div class="slider-slide">
+                    <div class="slide-content">
+                        <div class="slide-image">
+                            <img src="/img/hizmet_telefon.png" alt="Telefon Tamiri" />
+                        </div>
+                        <div class="slide-text">
+                            <h3>Telefon Tamiri</h3>
+                            <p>Akıllı telefon ve tablet cihazlarınızın ekran değişimi, batarya değişimi, şarj girişi tamiri ve yazılım sorunları konusunda uzman hizmet sunuyoruz. Tüm markalar için orijinal yedek parça garantisi.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 4 - TV -->
+                <div class="slider-slide">
+                    <div class="slide-content">
+                        <div class="slide-image">
+                            <img src="/img/hizmet_tv.png" alt="Televizyon Tamiri" />
+                        </div>
+                        <div class="slide-text">
+                            <h3>Televizyon Tamiri</h3>
+                            <p>LED, LCD, OLED ve diğer tüm TV teknolojilerinde uzmanız. Ekran değişimi, güç kaynağı tamiri, ses sorunları ve yazılım güncellemeleri konusunda profesyonel hizmet veriyoruz.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 5 - Elektronik Kart -->
+                <div class="slider-slide">
+                    <div class="slide-content">
+                        <div class="slide-image">
+                            <img src="/img/hizmet_elektronikkart.png" alt="Elektronik Kart Tamiri" />
+                        </div>
+                        <div class="slide-text">
+                            <h3>Elektronik Kart Tamiri</h3>
+                            <p>Anakart, grafik kartı, ses kartı ve diğer elektronik kartların tamiri konusunda uzmanız. BGA lehimleme, kapasitör değişimi ve mikroçip tamiri gibi hassas işlemleri güvenle yapıyoruz.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 6 - Ev Aletleri -->
+                <div class="slider-slide">
+                    <div class="slide-content">
+                        <div class="slide-image">
+                            <img src="/img/hizmet_evaleti.png" alt="Küçük Ev Aletleri Tamiri" />
+                        </div>
+                        <div class="slide-text">
+                            <h3>Küçük Ev Aletleri Tamiri</h3>
+                            <p>Mikrodalga fırın, blender, kahve makinesi, ütü ve diğer küçük ev aletlerinin tamiri konusunda hizmet veriyoruz. Tüm markalar için yedek parça ve teknik destek sağlıyoruz.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slider Navigation -->
+            <div class="slider-navigation">
+                <button class="slider-btn prev-btn" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-btn next-btn" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <!-- Slider Dots -->
+            <div class="slider-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+                <span class="dot" data-slide="3"></span>
+                <span class="dot" data-slide="4"></span>
+                <span class="dot" data-slide="5"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Products Section -->
 <div class="products-section" id="products">
     <div class="container">
@@ -810,7 +1130,7 @@
 </div>
 
 <!-- About Section -->
-<div class="about-section" id="about" style="padding: 4rem 0;">
+<div class="about-section" id="about" style="padding: 4rem 0; background: transparent;">
     <div class="container">
         <h2 class="section-title text-center mb-5">
             <i class="fas fa-info-circle me-2"></i>Hakkımızda
@@ -942,7 +1262,7 @@
 </div>
 
 <!-- Contact Section -->
-<div class="contact-section" id="contact" style="padding: 4rem 0;">
+<div class="contact-section" id="contact" style="padding: 4rem 0; background: transparent;">
     <div class="container">
         <h2 class="section-title text-center mb-5">
             <i class="fas fa-phone me-2"></i>İletişim Bilgileri
@@ -1151,6 +1471,160 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // Services Slider Functionality
+    const slider = document.getElementById('servicesSlider');
+    const slides = document.querySelectorAll('.slider-slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+    
+    // Auto-play functionality
+    let autoPlayInterval;
+    
+    function showSlide(index) {
+        // Remove active class from all slides and dots
+        slides.forEach(slide => {
+            slide.classList.remove('active');
+            slide.style.opacity = '0';
+            slide.style.transform = 'translateX(100%)';
+        });
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        // Add active class to current slide and dot
+        slides[index].classList.add('active');
+        slides[index].style.opacity = '1';
+        slides[index].style.transform = 'translateX(0)';
+        dots[index].classList.add('active');
+        
+        currentSlide = index;
+    }
+    
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+    }
+    
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(currentSlide);
+    }
+    
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+    }
+    
+    function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+    }
+    
+    // Event listeners
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        stopAutoPlay();
+        startAutoPlay(); // Restart auto-play
+    });
+    
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        stopAutoPlay();
+        startAutoPlay(); // Restart auto-play
+    });
+    
+    // Dot navigation
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showSlide(index);
+            stopAutoPlay();
+            startAutoPlay(); // Restart auto-play
+        });
+    });
+    
+    // Pause auto-play on hover
+    slider.addEventListener('mouseenter', stopAutoPlay);
+    slider.addEventListener('mouseleave', startAutoPlay);
+    
+    // Touch/swipe support for mobile
+    let startX = 0;
+    let endX = 0;
+    
+    slider.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        stopAutoPlay();
+    });
+    
+    slider.addEventListener('touchend', (e) => {
+        endX = e.changedTouches[0].clientX;
+        handleSwipe();
+        startAutoPlay();
+    });
+    
+    function handleSwipe() {
+        const threshold = 50; // Minimum swipe distance
+        const diff = startX - endX;
+        
+        if (Math.abs(diff) > threshold) {
+            if (diff > 0) {
+                // Swipe left - next slide
+                nextSlide();
+            } else {
+                // Swipe right - previous slide
+                prevSlide();
+            }
+        }
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+            stopAutoPlay();
+            startAutoPlay();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+            stopAutoPlay();
+            startAutoPlay();
+        }
+    });
+    
+    // Initialize slider
+    // Set initial state for all slides
+    slides.forEach((slide, index) => {
+        if (index === 0) {
+            slide.classList.add('active');
+            slide.style.opacity = '1';
+            slide.style.transform = 'translateX(0)';
+        } else {
+            slide.style.opacity = '0';
+            slide.style.transform = 'translateX(100%)';
+        }
+    });
+    
+    // Handle dropdown navigation
+    document.querySelectorAll('.dropdown-item[data-slide]').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const slideIndex = parseInt(item.getAttribute('data-slide'));
+            showSlide(slideIndex);
+            stopAutoPlay();
+            startAutoPlay();
+            
+            // Scroll to services slider section
+            const servicesSliderSection = document.getElementById('services-slider');
+            if (servicesSliderSection) {
+                servicesSliderSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    showSlide(0);
+    startAutoPlay();
 });
 </script>
 
